@@ -1,0 +1,44 @@
+
+.section-container{
+    background-color: #FFFFFF;
+    
+}
+
+.owl-carousel-container {
+    position: relative; /* Parent container must have relative positioning */
+  }
+  
+  /* Arrow button styles */
+  .btn {
+    position: absolute; /* Absolute positioning inside the container */
+    top: 50%; /* Vertically center the button */
+    transform: translateY(-50%); /* Perfect centering */
+    background-color: #FDEBF0;/* Background for visibility */
+    border-radius: 50%; /* Circular buttons */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 111111111111111111111111111111111;
+  }
+  
+  /* Styles for arrow icons */
+  button svg {
+    width: 24px; /* Icon width */
+    height: 24px;
+    fill: #001018; /* Arrow color */
+  }
+  
+  /* Left Arrow Button - Positioned on the left */
+  button.left {
+    left: 10px;
+  }
+  
+  /* Right Arrow Button - Positioned on the right */
+  button.right {
+    right: 10px;
+  }
+  

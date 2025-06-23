@@ -1,0 +1,111 @@
+<div class="container mx-auto p-6">
+    <h3 class="text-[#471221] font-bold text-lg mb-8" dir="rtl">تفاصيل التتبع</h3>
+
+    <!-- Order Details -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Order Code -->
+        <div class="p-4 space-y-4" dir="rtl">
+            <div class="border p-6 rounded-lg shadow-sm bg-[#BDBDBD]">
+                <span class="text-[#471221] font-bold">كود الأوردر:</span>
+                <span class="text-[#471221] px-4 py-2 font-bold">NU:12345589</span>
+            </div>
+
+            <!-- Delivery Address -->
+            <div class="border p-6 rounded-lg shadow-sm text-right">
+                <h3 class="text-[#471221] font-bold text-lg">عنوان التوصيل <span class="text-[#471221]">(المنزل)</span></h3>
+                <p class="text-sm text-[#777777] mt-2">
+                    Bassam <br>
+                    <span class="text-[#000000] font-semibold">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        بيلا - 1000 - الدقي - شارع النيل - قسم بيلا - سويف، محافظة بني سويف
+                    </span>
+                </p>
+                <button class="mt-4 bg-white border border-[#EF3D6F] text-[#EF3D6F] px-4 py-2 rounded-lg transition">
+                    تحديث العنوان
+                </button>
+            </div>
+        </div>
+
+        <!-- Order Tracking Status -->
+        <div class="p-6 bg-[#F6F6F6] rounded-lg shadow-sm text-right">
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="absolute right-2 top-0 h-full w-0.5 bg-gray-300"></div>
+
+                <!-- Steps -->
+                <div class="space-y-4">
+                    <!-- Step 1 -->
+                    <div class="flex items-center justify-end space-x-2 relative">
+                        <span class="text-gray-700 text-sm">استلمنا الطلب (28 يناير)</span>
+                        <div class="bg-green-500 text-white w-6 h-6 flex items-center justify-center rounded-full z-10">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex items-center justify-end space-x-2 relative">
+                        <span class="text-gray-700 text-sm">قيد التجهيز (24 يناير)</span>
+                        <div class="bg-green-500 text-white w-6 h-6 flex items-center justify-center rounded-full z-10">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex items-center justify-end space-x-2 relative">
+                        <span class="text-gray-700 text-sm">كود 25 (يناير) في المعاد المحدد</span>
+                        <div class="bg-green-500 text-white w-6 h-6 flex items-center justify-center rounded-full z-10">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 (Inactive) -->
+                    <div class="flex items-center justify-end space-x-2 relative">
+                        <span class="text-gray-500 text-sm">تم الإرسال</span>
+                        <div class="bg-gray-300 text-white w-6 h-6 flex items-center justify-center rounded-full z-10">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 (Inactive) -->
+                    <div class="flex items-center justify-end space-x-2 relative">
+                        <span class="text-gray-500 text-sm">التسليم يوم الثلاثاء 28 يناير</span>
+                        <div class="bg-gray-300 text-white w-6 h-6 flex items-center justify-center rounded-full z-10">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery Address & Product Details (Aligned to the right) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 text-right" dir="rtl">
+        <!-- Product Details -->
+        <div class="p-6 rounded-lg shadow-sm bg-[#F6F6F6]">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-[#000000] font-bold text-lg">بيانات المنتج</h3>
+                    <p class="text-sm text-[#777777]">بمجرد التجهيز لا يمكن إلغاء منتجات من الأوردر</p>
+                </div>
+                <button class="bg-[#F5B0CE] text-[#000000] px-4 py-2 transition">
+                    إلغاء منتج
+                </button>
+            </div>
+
+            <!-- Updated HR line -->
+            <hr class="my-4 border-t-2 border-gray-300">
+
+            <div class="flex items-center space-x-1 mt-4">
+                <!-- Product image with 2px border -->
+                <div class="border-2 p-1 rounded-lg">
+                    <img src="assets/images/sale-1.png" alt="Product" class="w-20 h-20 rounded-lg">
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-800">مجموعة Dazzler Glitter للشفاه من شيجلام</p>
+                    <span class="text-pink-600 font-semibold">310.00 جنيه</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

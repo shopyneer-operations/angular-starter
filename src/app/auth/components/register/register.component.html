@@ -1,0 +1,122 @@
+<div class="flex flex-col min-h-screen bg-gray-50">
+  <!-- Main Container -->
+  <div class="flex flex-col lg:flex-row flex-1">
+    <!-- Left Section (Images) -->
+     <!--
+    <div class="w-full lg:w-1/2 bg-gradient-to-br from-[#F5B0CE] to-[#EF3D6F] flex items-center justify-center py-12 lg:py-0">
+      <div class="flex flex-col items-center space-y-8 max-w-md mx-auto">
+        <div class="relative group">
+          <img src="assets/images/register/1.png" alt="Perfume 1" class="w-40 sm:w-48 lg:w-56 mx-auto transform group-hover:scale-110 transition-transform duration-300 ease-in-out">
+          <div class="absolute inset-0 bg-black bg-opacity-10 rounded-lg group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+        </div>
+        <div class="relative group">
+          <img src="assets/images/register/2.png" alt="Perfume 2" class="w-40 sm:w-48 lg:w-56 mx-auto transform group-hover:scale-110 transition-transform duration-300 ease-in-out">
+          <div class="absolute inset-0 bg-black bg-opacity-10 rounded-lg group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+        </div>
+        <div class="relative group">
+          <img src="assets/images/register/3.png" alt="Makeup" class="w-40 sm:w-48 lg:w-56 mx-auto transform group-hover:scale-110 transition-transform duration-300 ease-in-out">
+          <div class="absolute inset-0 bg-black bg-opacity-10 rounded-lg group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+        </div>
+      </div>
+    </div>
+-->
+    <!-- Right Section (Form) lg:w-1/2 -->
+    <div class="w-full   flex items-center justify-center py-12 m-4 p-4 lg:py-0" dir="rtl">
+      <div class="w-full max-w-md px-6 sm:px-8 lg:px-12 space-y-8 bg-white rounded-2xl shadow-2xl">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-[#471221] text-center tracking-tight mt-8">إنشاء حساب</h1>
+
+        <!-- Success/Error Message -->
+        <div *ngIf="successMessage" class="p-4 bg-green-100 text-green-700 rounded-lg text-center">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="p-4 bg-red-100 text-red-700 rounded-lg text-center">
+          {{ errorMessage }}
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="createCustomer()" class="space-y-6">
+          <!-- First Name -->
+          <div>
+            <label for="first-name" class="block text-sm font-medium text-[#040F0F] mb-2">الاسم الأول</label>
+            <input type="text" id="first-name" formControlName="first_name"
+                   class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500 transition-all duration-200 p-3 text-right placeholder-gray-400"
+                   placeholder="ادخل اسمك الأول"
+                   [ngClass]="{'border-red-500': f['first_name'].touched && f['first_name'].invalid}">
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['first_name'].touched && f['first_name'].invalid">
+              * يجب أن يكون الاسم الأول على الأقل حرفين
+            </p>
+          </div>
+
+          <!-- Last Name -->
+          <div>
+            <label for="last-name" class="block text-sm font-medium text-[#040F0F] mb-2">الاسم الأخير</label>
+            <input type="text" id="last-name" formControlName="last_name"
+                   class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500 transition-all duration-200 p-3 text-right placeholder-gray-400"
+                   placeholder="ادخل اسمك الأخير"
+                   [ngClass]="{'border-red-500': f['last_name'].touched && f['last_name'].invalid}">
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['last_name'].touched && f['last_name'].invalid">
+              * يجب أن يكون الاسم الأخير على الأقل حرفين
+            </p>
+          </div>
+
+          <!-- Phone Number -->
+          <div>
+            <label for="phone" class="block text-sm font-medium text-[#040F0F] mb-2">رقم الهاتف</label>
+            <input type="tel" id="phone" formControlName="phone"
+                   class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500 transition-all duration-200 p-3 text-right placeholder-gray-400"
+                   placeholder="ادخل رقم هاتفك"
+                   [ngClass]="{'border-red-500': f['phone'].touched && f['phone'].invalid}">
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['phone'].touched && f['phone'].invalid">
+              * يجب أن يكون رقم الهاتف صالحًا (10 أرقام على الأقل)
+            </p>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-[#040F0F] mb-2">البريد الإلكتروني</label>
+            <input type="email" id="email" formControlName="email"
+                   class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500 transition-all duration-200 p-3 text-right placeholder-gray-400"
+                   placeholder="ادخل بريدك"
+                   [ngClass]="{'border-red-500': f['email'].touched && f['email'].invalid}">
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['email'].touched && f['email'].invalid">
+              * الرجاء إدخال بريد إلكتروني صحيح
+            </p>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-[#040F0F] mb-2">كلمة المرور</label>
+            <input type="password" id="password" formControlName="password"
+                   class="mt-1 block w-full rounded-lg border border-gray-300 shadow-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500 transition-all duration-200 p-3 text-right placeholder-gray-400"
+                   placeholder="ادخل كلمة المرور الخاصة بك"
+                   [ngClass]="{'border-red-500': f['password'].touched && f['password'].invalid}">
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['password'].touched && f['password'].invalid">
+              * يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل
+            </p>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <button type="submit"
+                    [disabled]="registerForm.invalid || isLoading"
+                    class="w-full bg-[#EF3D6F] text-white py-3 px-4 rounded-lg hover:bg-[#D63661] focus:outline-none focus:ring-2 focus:ring-[#EF3D6F] focus:ring-offset-2 transition-all duration-200 flex items-center justify-center font-medium"
+                    [ngClass]="{'opacity-50 cursor-not-allowed': registerForm.invalid || isLoading}">
+              <span *ngIf="isLoading" class="inline-flex items-center">
+                <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                جارٍ الإنشاء...
+              </span>
+              <span *ngIf="!isLoading">إنشاء حساب</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="text-sm text-gray-600 text-center mb-8">
+          لدي حساب بالفعل؟ 
+          <a routerLink="/login" class="text-[#EF3D6F] hover:underline font-medium">تسجيل الدخول</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

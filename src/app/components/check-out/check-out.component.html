@@ -1,0 +1,207 @@
+<div class="container mx-auto p-5" dir="rtl">
+  <!-- Parent Container -->
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Left Section: 3/5 Width -->
+    <div class="w-full md:w-[65%]">
+      <!-- Customer Information Section -->
+      <div class="bg-white p-4 sm:p-6 rounded-lg">
+        <h2 class="text-lg sm:text-xl font-semibold text-[#471221] mb-2 sm:mb-4">بيانات العميل</h2>
+        <form [formGroup]="customerForm" class="p-4 rounded-lg border border-[#F5B0CE]">
+          <div class="text-sm sm:text-base font-medium text-[#471221] mb-4">
+            يرجى ملء بياناتك بدقة لضمان توصيل الطلب بنجاح.
+          </div>
+          <!-- Form Fields -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- First Name -->
+            <div class="flex flex-col">
+              <label for="first_name" class="text-sm font-medium text-[#000000] mb-1">الاسم الأول <span class="text-[#EF3D6F]">*</span></label>
+              <input
+                type="text"
+                id="first_name"
+                formControlName="first_name"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#EF3D6F] focus:outline-none"
+                placeholder="أدخل الاسم الأول"
+                aria-required="true"
+              />
+              <span *ngIf="f.first_name.touched && f.first_name.errors" class="text-red-500 text-sm mt-1">
+                <span *ngIf="f.first_name.errors?.['required']">الاسم الأول مطلوب.</span>
+                <span *ngIf="f.first_name.errors?.['minlength']">الاسم الأول يجب أن يكون على الأقل 2 أحرف.</span>
+              </span>
+            </div>
+
+            <!-- Last Name -->
+            <div class="flex flex-col">
+              <label for="last_name" class="text-sm font-medium text-[#000000] mb-1">الاسم الأخير <span class="text-[#EF3D6F]">*</span></label>
+              <input
+                type="text"
+                id="last_name"
+                formControlName="last_name"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#EF3D6F] focus:outline-none"
+                placeholder="أدخل الاسم الأخير"
+                aria-required="true"
+              />
+              <span *ngIf="f.last_name.touched && f.last_name.errors" class="text-red-500 text-sm mt-1">
+                <span *ngIf="f.last_name.errors?.['required']">الاسم الأخير مطلوب.</span>
+                <span *ngIf="f.last_name.errors?.['minlength']">الاسم الأخير يجب أن يكون على الأقل 2 أحرف.</span>
+              </span>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex flex-col">
+              <label for="phone" class="text-sm font-medium text-[#000000] mb-1">رقم الهاتف <span class="text-[#EF3D6F]">*</span></label>
+              <input
+                type="tel"
+                id="phone"
+                formControlName="phone"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#EF3D6F] focus:outline-none"
+                placeholder="مثال: 01012345678"
+                aria-required="true"
+              />
+              <span *ngIf="f.phone.touched && f.phone.errors" class="text-red-500 text-sm mt-1">
+                <span *ngIf="f.phone.errors?.['required']">رقم الهاتف مطلوب.</span>
+                <span *ngIf="f.phone.errors?.['pattern']">يرجى إدخال رقم هاتف مصري صحيح (مثل 01012345678).</span>
+              </span>
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col">
+              <label for="email" class="text-sm font-medium text-[#000000] mb-1">البريد الإلكتروني <span class="text-[#EF3D6F]">*</span></label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#EF3D6F] focus:outline-none"
+                placeholder="أدخل البريد الإلكتروني"
+                aria-required="true"
+              />
+              <span *ngIf="f.email.touched && f.email.errors" class="text-red-500 text-sm mt-1">
+                <span *ngIf="f.email.errors?.['required']">البريد الإلكتروني مطلوب.</span>
+                <span *ngIf="f.email.errors?.['email']">يرجى إدخال بريد إلكتروني صالح.</span>
+              </span>
+            </div>
+
+            <!-- Address -->
+            <div class="flex flex-col sm:col-span-2">
+              <label for="address" class="text-sm font-medium text-[#000000] mb-1">العنوان <span class="text-[#EF3D6F]">*</span></label>
+              <textarea
+                id="address"
+                formControlName="address"
+                class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#EF3D6F] focus:outline-none"
+                placeholder="أدخل العنوان بالتفصيل (مثال: 123 الشارع الرئيسي، بني سويف)"
+                rows="3"
+                aria-required="true"
+              ></textarea>
+              <span *ngIf="f.address.touched && f.address.errors" class="text-red-500 text-sm mt-1">
+                <span *ngIf="f.address.errors?.['required']">العنوان مطلوب.</span>
+                <span *ngIf="f.address.errors?.['minlength']">العنوان يجب أن يكون على الأقل 10 أحرف.</span>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Order Summary Section -->
+      <div class="bg-white p-6 rounded-lg">
+        <h2 class="text-xl font-semibold text-[#471221] mb-4">أوردرك</h2>
+        <div class="p-4 rounded-lg border border-[#F5B0CE]">
+          <p class="text-gray-600 mb-4">شحنة رقم 1 من 1 (1 منتج)</p>
+          <div class="flex flex-row items-center space-x-4">
+            <img src="assets/images/cart.png" alt="Product Image" class="w-24 h-auto rounded-lg" />
+            <div class="flex flex-col">
+              <p class="text-[#777777]">ماركة شيجلام</p>
+              <p class="text-[#000000] font-bold">مجموعة Dazzler Glitter للشفاه من شيجلام</p>
+              <span class="text-[#EF3D6F] text-2xl font-bold">310.00 جنيه</span>
+            </div>
+          </div>
+          <p class="text-[#000000] font-bold mt-4">
+            احصلي عليها <span class="text-[#EF3D6F]">الخميس 2 يناير</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="bg-white p-6 rounded-lg">
+        <h2 class="text-xl font-semibold text-[#471221] mb-4">الدفع</h2>
+        <div class="p-4 rounded-lg border border-[#F5B0CE]">
+          <div *ngIf="payment_providers.length > 0; else noProviders">
+            <div *ngFor="let provider of payment_providers; let i = index" class="mb-4">
+              <div class="flex justify-between items-center mb-3">
+                <div class="flex items-center">
+                  <input
+                    type="radio"
+                    [id]="provider.id"
+                    name="payment"
+                    class="form-radio h-4 w-4 text-pink-500"
+                    [value]="provider.id"
+                    [disabled]="!provider.is_enabled"
+                    [(ngModel)]="selectedPaymentProvider"
+                    (change)="selectPaymentProvider(provider.id)"
+                    [checked]="i === 0"
+                  />
+                  <label [for]="provider.id" class="text-[#000000] font-bold mr-2">
+                    {{ getProviderLabel(provider.id) }}
+                  </label>
+                </div>
+                <img
+                  [src]="getProviderIcon(provider.id)"
+                  [alt]="getProviderLabel(provider.id)"
+                  class="w-6 h-6"
+                />
+              </div>
+              <p class="text-[#000000]">{{ getProviderDescription(provider.id) }}</p>
+              <!-- Add payment method icons for Fawaterak -->
+              <div *ngIf="provider.id === 'pp_fawaterak_json'" class="flex gap-3 rtl:space-x-reverse mt-3">
+                <img src="assets/images/p-1.png" alt="Visa" class="h-8" />
+                <img src="assets/images/p-2.png" alt="PayPal" class="h-8" />
+                <img src="assets/images/p-3.png" alt="MasterCard" class="h-8" />
+                <img src="assets/images/p-4.png" alt="Other" class="h-8" />
+              </div>
+              <hr *ngIf="i < payment_providers.length - 1" class="h-px my-4 bg-gray-200 border-0" />
+            </div>
+          </div>
+          <ng-template #noProviders>
+            <p class="text-[#000000]">لا توجد خيارات دفع متاحة.</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section: 2/5 Width -->
+    <div class="w-full md:w-[35%]">
+      <!-- Content for the right section -->
+      <div class="bg-white p-6 rounded-lg">
+        <h2 class="text-xl font-semibold text-[#471221] mb-4">ملخص الأوردر</h2>
+        <div class="border border-[#BDBDBD] rounded-lg p-6 h-auto">
+          <div class="text-right">
+            <div class="flex justify-between items-center mb-4 text-[#000000] font-bold">
+              <p>المجموع الفرعي<span class="text-sm text-[#777777] mr-2">1 منتج</span></p>
+              <span>620.00 جنيه</span>
+            </div>
+            <div class="flex justify-between items-center mb-4 text-[#000000] font-bold">
+              <span>رسوم الشحن</span>
+              <span>20.00 جنيه</span>
+            </div>
+            <div class="flex justify-between items-center mb-4 text-[#000000] font-bold">
+              <span>رسوم الدفع</span>
+              <span>9.00 جنيه</span>
+            </div>
+            <hr class="my-4 border-gray-200" />
+            <div class="flex justify-between items-center text-lg font-semibold">
+              <p>المجموع <span class="text-sm text-[#777777] mr-2">شامل الضريبة</span></p>
+              <span class="text-[#EF3D6F]">649.00 جنيه</span>
+            </div>
+          </div>
+          <button
+            (click)="createPayment()"
+            [disabled]="!selectedPaymentProvider || isProcessingPayment || isSubmittingForm || customerForm.invalid"
+            class="w-full mt-4 py-2 bg-[#EF3D6F] text-white font-medium rounded-lg hover:bg-[#D6325C] transition duration-300 disabled:bg-gray-400"
+          >
+            {{ isProcessingPayment || isSubmittingForm ? 'جاري المعالجة...' : 'تأكيد الأوردر' }}
+          </button>
+          <!-- Error Message -->
+          <p *ngIf="errorMessage" class="text-red-500 text-sm mt-2 text-right">{{ errorMessage }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

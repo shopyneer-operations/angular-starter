@@ -1,0 +1,14 @@
+<!-- Title -->
+<h2 class="text-2xl font-semibold text-[#471221] text-center mt-6">
+    اشترى حسب <span class="text-[#EF3D6F] font-bold">الفئة</span>
+</h2>
+
+<!-- Image Gallery -->
+<div class="flex flex-wrap gap-4 justify-center mt-4">
+    <div class="flex flex-col items-center" *ngFor="let category of productCategories">
+        <div class="w-36 md:w-44 lg:w-52 bg-[#D6D6D6] p-4 rounded-lg flex justify-center">
+            <img class="w-24 h-24 object-contain" src="assets/images/category.png" alt="{{category.name}}">
+        </div>
+        <p class="mt-2 text-sm font-semibold text-center">{{ category.name }}</p>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container mx-auto px-4 sm:px-6 relative">
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Subcategories Grid Section -->
+  <div *ngIf="category.category_children && category.category_children.length > 0" class="section-container bg-[#FFFFFF]  p-6 sm:p-8 rounded-xl shadow-lg mb-8">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+      <a
+        *ngFor="let subCategory of category.category_children"
+        [routerLink]="['/category', subCategory.id]"
+        [class.active]="subCategory.id === id"
+        class="group flex flex-col items-center text-center p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#EF3D6F] cursor-pointer"
+      >
+        <div class="relative w-20 h-20 sm:w-28 sm:h-28 mb-3">
+          <img
+            [src]="subCategory?.metadata.thumbnail"
+            [alt]="subCategory?.name"
+            class="w-full h-full object-cover rounded-full border-2 border-[#EF3D6F]/20 group-hover:border-[#EF3D6F]/40 group-[.active]:border-[#EF3D6F]/60 transition-all duration-300"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#EF3D6F]/10 to-transparent opacity-0 group-hover:opacity-100 group-[.active]:opacity-100 transition-opacity duration-300"></div>
+        </div>
+        <span class="text-sm sm:text-base font-semibold text-gray-800 group-hover:text-[#EF3D6F] group-[.active]:text-[#EF3D6F] transition-colors duration-300">
+          {{ subCategory?.name }}
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Category Products Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 bg-[#ffff] p-4 sm:p-6 md:p-8 rounded-xl">
+    <div
+      class="relative rounded-lg"
+      *ngFor="let item of fetchedProducts"
+    >
+      <app-product [product]="item"></app-product>
+    </div>
+    <!-- No Products Fallback -->
+    <div class="col-span-full text-center text-gray-500 py-8" *ngIf="fetchedProducts.length === 0 && (!category.category_children || category.category_children.length === 0) && !isLoading">
+      لا توجد منتجات لهذه الفئة حالياً
+    </div>
+  </div>
+</div>

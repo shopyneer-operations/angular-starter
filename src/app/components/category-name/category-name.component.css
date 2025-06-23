@@ -1,0 +1,47 @@
+.category-item {
+  display: inline-block;
+  padding: 0 5px; /* Adjust padding to reduce space */
+  margin: 0; /* Ensure no margin */
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  white-space: nowrap; /* Prevents text from wrapping */
+  border-radius: 5px; /* Soft edges */
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #FDEBF0;
+  border: none;
+  color: black;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1111111111;
+}
+
+.nav-button.left {
+  left: 0;
+}
+
+.nav-button.right {
+  right: 0;
+}
+
+.nav-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.owl-carousel-container {
+  width: 100%;
+  padding: 0 10px; /* Adjust padding if needed */
+  text-align: center;
+}

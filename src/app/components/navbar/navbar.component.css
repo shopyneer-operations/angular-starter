@@ -1,0 +1,30 @@
+nav{
+    z-index: 11111111111;
+}
+/* Custom CSS to adjust the layout if needed */
+.md\:order-2 {
+    order: 2;
+  }
+  
+  .md\:order-1 {
+    order: 1;
+  }
+
+  /* Custom styles for navbar */
+#dropdownNavbar {
+  transition: all 0.3s ease;
+}
+
+#dropdownNavbar.show {
+  display: block;
+}
+
+/* Ensure RTL alignment */
+nav {
+  direction: rtl;
+}
+
+/* Fix mobile menu toggle */
+[data-collapse-toggle="navbar-search"] {
+  cursor: pointer;
+}

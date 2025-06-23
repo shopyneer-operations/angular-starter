@@ -1,0 +1,46 @@
+<div class="section_container bg-white p-2">
+  <div class="owl-carousel-container relative">
+    <owl-carousel-o [options]="carouselOptions" #carousel>
+      <ng-container *ngFor="let item of categories; let i = index">
+        <ng-template carouselSlide [id]="'owl-slide-item-' + i">
+          <div class="slide-item flex flex-col items-center" routerLink="/category/{{item.id}}">
+            <div class="w-24 h-24 flex items-center justify-center bg-[#EF3D6F73] rounded-full">
+              <img
+                [src]="item.src"
+                [alt]="item.name"
+                class="w-18 h-18 object-cover rounded-full"
+              />
+            </div>
+            <p class="mt-2 text-center text-sm font-medium">
+              {{ item.name }}
+            </p>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+
+    <!-- Navigation Buttons -->
+    <button class="nav-button left" (click)="prevSlide()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button class="nav-button right" (click)="nextSlide()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+ <!-- Products Section -->
+ <section class="w-full md:w-3/4 p-4" dir="rtl">
+    <div class="flex items-center justify-between w-full">
+        <!-- Search Results Title Section -->
+        <div class="flex items-center space-x-4 mb-4">
+            <p class="text-2xl font-bold text-[#471221]"> المفضلة</p>
+          </div>
+          
+      
+        <!-- Sort Dropdown Section -->
+        <div class="relative mt-4 md:mt-0">
+          <label for="sort" class="sr-only">ترتيب حسب</label>
+          <select id="sort" class="appearance-none border border-gray-300 rounded-lg px-8 py-3 text-gray-600">
+            <option>الأحدث</option>
+            <option>الأكثر مبيعًا</option>
+            <option>الأعلى تقييمًا</option>
+          </select>
+          <span class="absolute inset-y-0 left-2 flex items-center pointer-events-none">
+            <!-- Dropdown Icon (optional) -->
+          </span>
+        </div>
+      </div>
+      
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Example Product Card -->
+      <div
+      class="relative bg-white shadow-md rounded-lg p-4 mt-4 "
+      *ngFor="let item of items"
+    >
+      <!-- Favorite Icon -->
+      <button
+        class="absolute top-3 left-3 z-10 text-[#EF3D6F] bg-white rounded-full p-2 shadow hover:text-[#D02A58]"
+      >
+        <i class="far fa-heart text-lg"></i>
+      </button>
+      <!-- Product Image -->
+      <div class="relative bg-gray-200 rounded-lg p-4">
+        <img [src]="item.image" [alt]="item.title" class="rounded-lg w-full" />
+        <div
+          class="absolute top-2 right-2 bg-[#471221] text-white text-xs px-2 py-1 rounded-full"
+        >
+          {{ item.discount }}
+        </div>
+      </div>
+      <!-- Product Details -->
+      <div class="text-right mt-4">
+        <h3 class="text-sm font-bold leading-5 text-black">
+          {{ item.title }}
+        </h3>
+        <div
+          class="flex items-center justify-end space-x-1 space-x-reverse text-gray-500 text-xs mt-1"
+        >
+          <span>({{ item.reviews }} تقييم)</span>
+          <i class="fas fa-star text-[#FFCA2D]"></i>
+        </div>
+        <div class="flex items-center justify-between mt-2">
+          <span class="text-gray-400 line-through text-sm">
+            {{ item.oldPrice }}
+          </span>
+          <span class="text-[#EF3D6F] font-bold text-sm">
+            {{ item.newPrice }}
+          </span>
+        </div>
+        <div class="flex justify-between items-center mt-4">
+          <button
+            class="bg-[#FDEBF0] text-[#EF3D6F] p-3 rounded-lg shadow hover:bg-[#EF3D6F] hover:text-white"
+          >
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>

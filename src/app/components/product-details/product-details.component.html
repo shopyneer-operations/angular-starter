@@ -1,0 +1,330 @@
+<div class="p-4" dir="rtl">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-[#EF3D6F]"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="text-center text-red-500 p-4">
+    {{ error }}
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="text-center text-green-500 p-4 bg-green-100 rounded-md">
+    {{ successMessage }}
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!isLoading && !error && productDetails" class="flex flex-col lg:flex-row gap-4">
+    <!-- Sidebar (Images and Details) -->
+    <div class="w-full lg:w-1/3 bg-white rounded-xl">
+      <!-- Main Image -->
+      <div class="mb-4">
+        <img
+          class="h-64 sm:h-80 w-full rounded-lg object-cover"
+          [src]="selectedImage"
+          [alt]="productDetails.title"
+          (load)="imageLoaded()"
+          [ngClass]="{'opacity-50': imageLoading}"
+        />
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="grid grid-cols-4 gap-2">
+        <img
+          *ngFor="let img of productImages; trackBy: trackByImageId"
+          class="h-20 w-full rounded-lg cursor-pointer border-2 hover:border-[#EF3D6F] transition"
+          [src]="img.url"
+          [alt]="'صورة مصغرة لـ ' + productDetails.title"
+          [class.border-[#EF3D6F]="img.url === selectedImage"
+          (click)="changeMainImage(img.url)"
+        />
+      </div>
+
+      <!-- Product Info Table -->
+      <div class="mt-6 overflow-x-auto rounded-md">
+        <table class="min-w-full border-collapse border border-gray-300">
+          <tbody>
+            <tr class="bg-gray-100">
+              <td class="border border-gray-300 px-4 py-2 text-right font-medium">المقاس</td>
+              <td class="border border-gray-300 px-4 py-2 text-left">{{ selectedSize || 'غير متوفر' }}</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 text-right font-medium">اللون</td>
+              <td class="border border-gray-300 px-4 py-2 text-left">{{ selectedColor || 'غير متوفر' }}</td>
+            </tr>
+            <tr class="bg-gray-100">
+              <td class="border border-gray-300 px-4 py-2 text-right font-medium">كود المنتج</td>
+              <td class="border border-gray-300 px-4 py-2 text-left">{{ selectedVariant?.sku || 'غير متوفر' }}</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 text-right font-medium">اسم الموديل</td>
+              <td class="border border-gray-300 px-4 py-2 text-left">{{ productDetails.handle || 'غير متوفر' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <section class="w-full lg:w-2/3">
+      <!-- Title, Rating, Price -->
+      <div class="border-b pb-4">
+        <h1 class="text-2xl font-bold text-[#471221]">{{ productDetails.title }}</h1>
+        <div class="flex items-center mt-2 space-x-2 rtl:space-x-reverse">
+          <div class="text-[#FFCA2D]">
+            <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4, 5]"></i>
+          </div>
+          <span class="text-sm text-gray-600">({{ ratingCount }} تقييم)</span>
+        </div>
+
+        <!-- Pricing -->
+        <div class="flex flex-wrap items-center gap-2 mt-4 rtl:space-x-reverse">
+          <p class="text-2xl font-bold text-[#EF3D6F]">{{ priceAmmount | number:'1.2-2' }} جنيه</p>
+          <p *ngIf="originalAmount > priceAmmount" class="text-gray-400 line-through">{{ originalAmount | number:'1.2-2' }} جنيه</p>
+          <span *ngIf="discountPercentage > 0" class="bg-[#471221] text-white px-3 py-1 rounded-md text-sm">
+            خصم {{ discountPercentage | number:'1.0-0' }}%
+          </span>
+        </div>
+        <p class="text-sm text-gray-600 mt-2">لا يمكن استبدال أو استرجاع هذا المنتج</p>
+
+        <!-- Size Selector -->
+        <div *ngIf="!hasSingleVariant">
+          <h3 class="text-[#471221] font-medium mt-4">المقاس:</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <button
+              *ngFor="let size of sizes"
+              class="border px-4 py-2 rounded-md text-[#000000] transition"
+              [ngClass]="{
+                'border-2 border-[#EF3D6F] bg-[#FDEBF0]': selectedSize === size,
+                'border-gray-300': selectedSize !== size
+              }"
+              (click)="selectSize(size)"
+              [attr.aria-label]="'اختر المقاس ' + size"
+              [disabled]="!isVariantAvailable(size, selectedColor)"
+            >
+              {{ size }}
+              <span *ngIf="!isVariantAvailable(size, selectedColor)" class="text-red-500 text-xs">(غير متوفر)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Color Selector -->
+        <div *ngIf="!hasSingleVariant">
+          <h3 class="text-[#471221] font-medium mt-4">اللون:</h3>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <button
+              *ngFor="let color of colors"
+              class="border-2 rounded-md p-1 transition"
+              [ngClass]="{
+                'border-[#EF3D6F]': selectedColor === color.value,
+                'border-gray-300': selectedColor !== color.value
+              }"
+              (click)="selectColor(color.value)"
+              [attr.aria-label]="'اختر اللون ' + color.value"
+              [disabled]="!isVariantAvailable(selectedSize, color.value)"
+            >
+              <img
+                [src]="color.thumbnail"
+                [alt]="'لون ' + color.value"
+                class="w-10 h-10 object-cover rounded"
+              />
+              <span *ngIf="!isVariantAvailable(selectedSize, color.value)" class="text-red-500 text-xs absolute top-0 left-0 bg-white px-1">(غير متوفر)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Add to Cart & Quantity -->
+        <div class="flex flex-wrap items-center gap-4 mt-6">
+          <button
+            class="flex-1 bg-[#EF3D6F] text-white py-3 rounded-md font-semibold hover:bg-[#D02A58] transition disabled:opacity-50"
+            (click)="addToCart()"
+            [disabled]="isAddingToCart || !selectedVariant || selectedVariant.inventory_quantity === 0"
+            aria-label="أضف إلى سلة التسوق"
+          >
+            <span *ngIf="isAddingToCart" class="animate-pulse">جاري الإضافة...</span>
+            <span *ngIf="!isAddingToCart">أضف لسلة التسوق</span>
+          </button>
+
+          <!-- Quantity Selector -->
+          <div class="flex items-center bg-[#FDEBF0] p-2 rounded-md gap-4">
+            <button class="text-lg font-bold text-[#EF3D6F]" (click)="decreaseQuantity()" aria-label="تقليل الكمية" [disabled]="quantity <= 1">-</button>
+            <span class="text-lg font-semibold">{{ quantity }}</span>
+            <button class="text-lg font-bold text-[#EF3D6F]" (click)="increaseQuantity()" aria-label="زيادة الكمية" [disabled]="selectedVariant?.inventory_quantity && quantity >= selectedVariant.inventory_quantity">+</button>
+          </div>
+
+          <!-- Wishlist -->
+          <button
+            class="bg-[#FDEBF0] text-[#EF3D6F] p-4 rounded-md hover:bg-[#EF3D6F] hover:text-white transition"
+            aria-label="إضافة إلى قائمة الأمنيات"
+          >
+            <i class="fas fa-heart"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Description -->
+      <div class="mt-6 space-y-8">
+        <div>
+          <h2 class="text-xl font-semibold text-[#471221] mb-4">تفاصيل المنتج</h2>
+          <p class="text-[#000000]"><span class="font-medium">المقاس:</span> {{ selectedSize || 'غير متوفر' }}</p>
+          <p class="text-[#000000]"><span class="font-medium">اللون:</span> {{ selectedColor || 'غير متوفر' }}</p>
+          <p class="text-[#000000]"><span class="font-medium">المخزون:</span> {{ selectedVariant?.inventory_quantity || 'غير متوفر' }}</p>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold text-[#471221] mb-4">أعرف أكثر عن المنتج</h2>
+          <p class="text-[#000000] leading-relaxed">{{ productDetails.description || 'لا توجد تفاصيل إضافية.' }}</p>
+        </div>
+      </div>
+
+      <!-- Secure Shopping -->
+      <div class="bg-[#EDEDED] p-4 mt-6 rounded-md flex flex-wrap items-center justify-between gap-4">
+        <h2 class="text-sm font-medium text-[#000000]">تسوق آمن، بياناتك محمية دائماً</h2>
+        <div class="flex gap-3 rtl:space-x-reverse">
+          <img src="assets/images/p-1.png" alt="Visa" class="h-8" />
+          <img src="assets/images/p-2.png" alt="PayPal" class="h-8" />
+          <img src="assets/images/p-3.png" alt="MasterCard" class="h-8" />
+          <img src="assets/images/p-4.png" alt="Other" class="h-8" />
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="bg-white p-6 grid grid-cols-2 md:grid-cols-4 text-center shadow-md mt-6">
+        <div class="flex flex-col items-center space-y-2 border-l border-[#471221]">
+          <div class="w-12 h-12 bg-pink-100 flex items-center justify-center p-2 rounded-lg">
+            <img src="assets/images/pay-1.png" alt="الدفع عند الاستلام" />
+          </div>
+          <p class="text-sm font-medium text-[#471221]">الدفع عند الاستلام</p>
+        </div>
+        <div class="flex flex-col items-center space-y-2 border-l border-[#471221]">
+          <div class="w-12 h-12 bg-pink-100 flex items-center justify-center p-2 rounded-lg">
+            <img src="assets/images/pay-2.png" alt="عملية دفع آمنة" />
+          </div>
+          <p class="text-sm font-medium text-[#471221]">عملية دفع آمنة</p>
+        </div>
+        <div class="flex flex-col items-center space-y-2 border-l border-[#471221]">
+          <div class="w-12 h-12 bg-pink-100 flex items-center justify-center p-2 rounded-lg">
+            <img src="assets/images/pay-3.png" alt="توصيل سريع" />
+          </div>
+          <p class="text-sm font-medium text-[#471221]">توصيل سريع</p>
+        </div>
+        <div class="flex flex-col items-center space-y-2">
+          <div class="w-12 h-12 bg-pink-100 flex items-center justify-center p-2 rounded-lg">
+            <img src="assets/images/pay-4.png" alt="تغليف آمن ضد التلف" />
+          </div>
+          <p class="text-sm font-medium text-[#471221]">تغليف آمن ضد التلف</p>
+        </div>
+      </div>
+
+      <!-- Related Products Section -->
+      <div class="bg-[#EDEDED] p-6">
+        <div class="max-w-5xl mx-auto bg-white p-6 rounded-sm">
+          <div class="flex items-center justify-between p-4 rounded-lg">
+            <!-- Product 1 -->
+            <div class="flex flex-col items-center space-y-2">
+              <input type="checkbox" class="form-checkbox text-pink-500">
+              <img src="assets/images/sale-1.png" alt="Product 1" class="w-20 h-20 object-cover rounded-lg">
+              <p class="text-sm text-[#000000] font-medium">ماسكارا انستنس سوبر الكثيف للرموش</p>
+              <p class="text-pink-600 font-bold">99.00 جنيه</p>
+            </div>
+            <!-- Plus Icon -->
+            <div class="text-[#000000] text-xl font-bold">+</div>
+            <!-- Product 2 -->
+            <div class="flex flex-col items-center space-y-2">
+              <input type="checkbox" class="form-checkbox text-pink-500">
+              <img src="assets/images/sale-2.png" alt="Product 2" class="w-20 h-20 object-cover rounded-lg">
+              <p class="text-sm text-[#000000] font-medium">بلشر كريمي - من شي ان</p>
+              <p class="text-pink-600 font-bold">210.00 جنيه</p>
+            </div>
+            <!-- Plus Icon -->
+            <div class="text-[#000000] text-xl font-bold">+</div>
+            <!-- Product 3 -->
+            <div class="flex flex-col items-center space-y-2">
+              <input type="checkbox" class="form-checkbox text-pink-500">
+              <img src="assets/images/sale-3.jpeg" alt="Product 3" class="w-20 h-20 object-cover rounded-lg">
+              <p class="text-sm text-[#000000] font-medium">مجموعة Dazzler Glitter للشفاه من شي ان</p>
+              <p class="text-pink-600 font-bold">310.00 جنيه</p>
+            </div>
+          </div>
+          <!-- Total Section -->
+          <div class="mt-6 text-center">
+            <button class="border border-[#EF3D6F] text-[#EF3D6F] py-4 px-6 rounded-lg">
+              اشتري 3 معاً بسعر 600.00 جنيه
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Ratings and Reviews Section -->
+  <div class="mt-8" dir="rtl">
+    <h2 class="text-xl font-bold text-[#EF3D6F] mb-4 text-center">تقييمات وآراء العملاء على المنتج</h2>
+    <div class="flex justify-center mb-4">
+      <span class="w-2 h-2 bg-[#EF3D6F] rounded-full mx-1"></span>
+      <span class="w-2 h-2 bg-[#EF3D6F] rounded-full mx-1"></span>
+      <span class="w-2 h-2 bg-[#EF3D6F] rounded-full mx-1"></span>
+    </div>
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="w-full md:w-2/5 bg-white p-6 rounded-xl shadow-lg">
+        <h3 class="text-xl font-bold text-[#471221] text-center mb-4">تقييمات المنتج</h3>
+        <div class="text-center mb-4">
+          <span class="text-sm text-gray-600">({{ ratingCount }} تقييم)</span>
+          <div class="text-[#FFCA2D]">
+            <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4]"></i>
+            <i class="fas fa-star text-[#E1E1E1]"></i>
+          </div>
+        </div>
+        <div class="space-y-2">
+          <div *ngFor="let rating of [5, 4, 3, 2, 1]" class="flex items-center">
+            <span class="text-sm text-gray-600 ml-2">{{ rating }}</span>
+            <div class="text-[#FFCA2D] p-2">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="w-full bg-gray-200 h-2 rounded-full">
+              <div
+                class="bg-[#FFC629] h-2 rounded-full"
+                [style.width.%]="rating === 5 ? 50 : rating === 4 ? 30 : rating === 3 ? 15 : rating === 2 ? 3 : 2"
+              ></div>
+            </div>
+            <span class="text-sm text-gray-600 mr-2">
+              {{ rating === 5 ? 50 : rating === 4 ? 30 : rating === 3 ? 15 : rating === 2 ? 3 : 2 }}
+            </span>
+          </div>
+        </div>
+        <div class="mt-4 text-sm text-gray-600">
+          <div class="flex items-start">
+            <img src="assets/images/star.png" class="w-6 h-6" alt="كيفية التقييم" loading="lazy" />
+            <div class="ml-2">
+              <h1 class="font-bold text-[#471221]">ازاي أقيم المنتج؟</h1>
+              <p class="text-[#000000]">لو اشتريت المنتج من شوفي، ممكن تدخل على "الطلبات" وتضع تقييمك.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full md:w-3/5 bg-[#EDEDED] p-6 rounded-xl">
+        <h2 class="text-xl font-bold text-[#471221] mb-4">آراء العملاء</h2>
+        <div class="space-y-4">
+          <div class="p-4 bg-white shadow-md rounded-lg flex flex-col space-y-2" *ngFor="let review of productReviews">
+            <div class="flex items-center space-x-4 rtl:space-x-reverse">
+              <img class="w-10 h-10 rounded-full" [src]="review.image" [alt]="'صورة المستخدم'" loading="lazy" />
+              <div>
+                <h3 class="text-lg font-bold text-[#000000]">{{ review.title }}</h3>
+                <p class="text-sm text-[#BDBDBD]">{{ review.created_at | date }}</p>
+                <div class="text-[#FFCA2D]">
+                  <i class="fas fa-star" *ngFor="let star of [].constructor(review.rating); let i = index"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-[#000000]">{{ review.description }}</p>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button class="px-6 py-2 bg-[#EF3D6F] text-white font-bold rounded-lg hover:bg-[#D02A58] transition">
+            عرض المزيد
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

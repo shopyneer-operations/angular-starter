@@ -1,0 +1,18 @@
+@import "primeicons/primeicons.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+
+:root {
+  --mainColor: #0081fe;
+}
+

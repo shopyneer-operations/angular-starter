@@ -1,0 +1,50 @@
+<div class="section-container bg-gradient-to-br from-gray-50 to-white py-8 px-4 sm:px-6 rounded-2xl shadow-lg">
+  <div class="flex flex-col items-center py-4">
+    <!-- Title -->
+    <span class="text-xl sm:text-2xl font-bold text-pink-600 text-center">منتجات مقترحة لك</span>
+
+    <!-- Decorative Dots -->
+    <div class="flex space-x-2 space-x-reverse mt-3">
+      <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+      <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+      <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+    </div>
+  </div>
+
+  <!-- Carousel Wrapper -->
+  <div class="owl-carousel-container relative">
+    <owl-carousel-o [options]="carouselOptions" #carousel>
+      <ng-container *ngFor="let item of products; let i = index">
+        <ng-template carouselSlide [id]="'owl-slide-item-' + i">
+          <app-product [product]="item"></app-product>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+
+    <!-- Left Navigation Arrow -->
+    <button
+      *ngIf="products.length > 1"
+      (click)="prevSlide()"
+      class="absolute top-1/2 -left-4 sm:-left-6 transform -translate-y-1/2 z-10 bg-white p-3 sm:p-4 rounded-full shadow-lg hover:bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-pink-500"
+      aria-label="السابق"
+      title="السابق"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Right Navigation Arrow -->
+    <button
+      *ngIf="products.length > 1"
+      (click)="nextSlide()"
+      class="absolute top-1/2 -right-4 sm:-right-6 transform -translate-y-1/2 z-10 bg-white p-3 sm:p-4 rounded-full shadow-lg hover:bg-gray-100 transition duration-200 focus:outline-none focus:ring-2 focus:ring-pink-500"
+      aria-label="التالي"
+      title="التالي"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>

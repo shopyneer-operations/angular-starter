@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://backend-production-b092.up.railway.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,0 +1,109 @@
+<div class="section-container py-6 px-4 md:px-8" dir="rtl" *ngIf="Promotions.length > 0">
+  <div class="flex flex-col items-center text-center py-4">
+    <!-- Header -->
+    <h3 class="text-lg md:text-xl font-semibold text-gray-700 flex items-center space-x-reverse space-x-2">
+      <img src="assets/images/discount-percent.png" alt="Sale Icon" class="w-5 h-5 md:w-6 md:h-6 object-contain" loading="lazy">
+      <span class="text-[#EF3D6F]">الخصم</span>
+      <span class="text-[#471221]">كوبونات</span>
+    </h3>
+
+    <!-- Dots Indicator (Only for Carousel) -->
+    <div class="flex space-x-1 mt-2" *ngIf="Promotions.length > 3">
+      <span
+        *ngFor="let _ of Promotions"
+        class="w-2 h-2 md:w-3 md:h-3 bg-pink-500 rounded-full"
+      ></span>
+    </div>
+  </div>
+
+  <!-- Static Cards (1-3 Promotions) -->
+  <div *ngIf="Promotions.length <= 3" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
+    <div
+      *ngFor="let Promotion of Promotions; let i = index"
+      class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-fade-in"
+    >
+      <!-- Coupon Code -->
+      <div class="bg-[#471221] text-white text-xs md:text-sm px-4 py-3 rounded-lg text-center font-medium">
+        استخدم كوبون {{ Promotion.code }}
+      </div>
+
+      <!-- Promotion Details -->
+      <div class="flex flex-col items-center text-center mt-4">
+        <h3 class="text-lg md:text-xl font-semibold text-[#EF3D6F] flex items-center gap-2">
+          ليكي خصم
+          <span class="bg-[#EF3D6F] text-white px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-bold shadow">
+            {{ Promotion.application_method?.value || 'غير متوفر' }}%
+          </span>
+        </h3>
+        <p class="text-sm text-gray-700 mt-1">
+          لحد {{ Promotion.application_method?.value || 'غير متوفر' }} جنيه
+        </p>
+
+        <!-- Coupon Image -->
+        <img
+          src="assets/images/copon-discount-img.png"
+          alt="Discount Image"
+          class="w-20 md:w-24 h-20 md:h-24 object-contain mt-4"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Carousel (More than 3 Promotions) -->
+  <div *ngIf="Promotions.length > 3" class="relative max-w-6xl mx-auto">
+    <owl-carousel-o [options]="carouselOptions">
+      <ng-container *ngFor="let Promotion of Promotions; let i = index">
+        <ng-template carouselSlide [id]="'coupon-slide-' + i">
+          <div class="p-4 bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-fade-in">
+            <!-- Coupon Code -->
+            <div class="bg-[#471221] text-white text-xs md:text-sm px-4 py-3 rounded-lg text-center font-medium">
+              استخدم كوبون {{ Promotion.code }}
+            </div>
+
+            <!-- Promotion Details -->
+            <div class="flex flex-col items-center text-center mt-4">
+              <h3 class="text-lg md:text-xl font-semibold text-[#EF3D6F] flex items-center gap-2">
+                ليكي خصم
+                <span class="bg-[#EF3D6F] text-white px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-bold shadow">
+                  {{ Promotion.application_method?.value || 'غير متوفر' }}%
+                </span>
+              </h3>
+              <p class="text-sm text-gray-700 mt-1">
+                لحد {{ Promotion.application_method?.value || 'غير متوفر' }} جنيه
+              </p>
+
+              <!-- Coupon Image -->
+              <img
+                src="assets/images/copon-discount-img.png"
+                alt="Discount Image"
+                class="w-20 md:w-24 h-20 md:h-24 object-contain mt-4"
+                loading="lazy"
+              >
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+
+    <!-- Navigation Arrows -->
+    <button
+      class="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-gray-300 hover:bg-gray-400 p-2 rounded-full shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pink-600"
+      (click)="prevSlide()"
+      aria-label="Previous Coupon"
+    >
+      <svg class="w-5 h-5 md:w-6 md:h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button
+      class="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-gray-300 hover:bg-gray-400 p-2 rounded-full shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pink-600"
+      (click)="nextSlide()"
+      aria-label="Next Coupon"
+    >
+      <svg class="w-5 h-5 md:w-6 md:h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 bg-[#FDEBF0]" dir="rtl">
+  <!-- First Section -->
+  <div class="flex flex-col justify-center items-center text-center">
+    <h3
+      class="text-xl font-semibold text-gray-700 flex items-center justify-center space-x-2 space-x-reverse"
+    >
+      <span class="text-[#471221]">كل يوم</span>
+      <span class="text-[#EF3D6F]">Flash Sale</span>
+      <img
+        src="assets/images/sale-icon.png"
+        alt="Sale Icon"
+        class="w-6 h-6 object-contain"
+      />
+    </h3>
+  </div>
+
+  <!-- Second Section -->
+  <div class="flex flex-col justify-center items-center">
+    <div class="flex items-center space-x-6 space-x-reverse">
+      <!-- Seconds -->
+      <h1 class="text-[#000000] font-bold">الوقت المتبقي :</h1>
+      <div class="relative flex flex-col items-center">
+        <!-- Calendar Icon Background -->
+        <div
+          class="relative w-14 h-14 bg-red-100 rounded-lg flex flex-col items-center justify-center border border-red-300 shadow-md"
+        >
+          <!-- Top Calendar Bar -->
+          <div
+            class="absolute top-0 left-0 w-full h-4 bg-red-500 rounded-t-lg"
+          ></div>
+          <!-- Content in the Calendar -->
+          <span class="text-red-500 text-lg font-bold">15</span>
+        </div>
+        <!-- Label Below the Icon -->
+        <span class="text-[#000000] text-sm mt-1 font-bold">ثانية</span>
+      </div>
+
+      <!-- Minutes -->
+      <div class="relative flex flex-col items-center">
+        <!-- Calendar Icon Background -->
+        <div
+          class="relative w-14 h-14 bg-red-100 rounded-lg flex flex-col items-center justify-center border border-red-300 shadow-md"
+        >
+          <!-- Top Calendar Bar -->
+          <div
+            class="absolute top-0 left-0 w-full h-4 bg-red-500 rounded-t-lg"
+          ></div>
+          <!-- Content in the Calendar -->
+          <span class="text-red-500 text-lg font-bold">50</span>
+        </div>
+        <!-- Label Below the Icon -->
+        <span class="text-[#000000] text-sm mt-1 font-bold">دقيقة</span>
+      </div>
+      <!-- Hours -->
+      <div class="relative flex flex-col items-center">
+        <!-- Calendar Icon Background -->
+        <div
+          class="relative w-14 h-14 bg-red-100 rounded-lg flex flex-col items-center justify-center border border-red-300 shadow-md"
+        >
+          <!-- Top Calendar Bar -->
+          <div
+            class="absolute top-0 left-0 w-full h-4 bg-red-500 rounded-t-lg"
+          ></div>
+          <!-- Content in the Calendar -->
+          <span class="text-red-500 text-lg font-bold">23</span>
+        </div>
+        <!-- Label Below the Icon -->
+        <span class="text-[#000000] text-sm mt-1 font-bold">ساعة</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Third Section -->
+  <div class="flex flex-col justify-center items-center">
+    <button
+      class="bg-[#EF3D6F] text-white font-medium text-sm px-8 py-3 rounded-lg shadow-md transition-transform transform hover:scale-105"
+    >
+      اكتشف كل العروض
+      <i class="fas fa-arrow-left ml-2"></i>
+    </button>
+  </div>
+</div>
+
+<div class="section-container p-8">
+  <div class="owl-carousel-container">
+    <owl-carousel-o [options]="carouselOptions" #carousel>
+      <ng-container *ngFor="let item of items_caresoul; let i = index">
+        <ng-template carouselSlide [id]="'owl-slide-item-' + i">
+          <!-- Card Template -->
+          <app-product [product]="item"></app-product>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+    <!-- Left Arrow Button -->
+    <button class="left btn" (click)="prevSlide()">
+      <!-- Left Arrow Icon -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Right Arrow Button -->
+    <button class="right btn" (click)="nextSlide()">
+      <!-- Right Arrow Icon -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="2"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>

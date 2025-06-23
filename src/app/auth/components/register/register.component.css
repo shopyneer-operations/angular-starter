@@ -1,0 +1,12 @@
+:--root{
+    --mai-color:#EF3D6F
+}
+
+/* register.component.css */
+input.ng-invalid.ng-touched {
+  border-color: #ef4444 !important;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}

@@ -1,0 +1,13 @@
+/* Smooth transitions for buttons */
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for product cards */
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,108 @@
+<div class="flex flex-col min-h-screen bg-gray-50">
+  <div class="flex-1 p-6 sm:p-10 ">
+    <div class="bg-white shadow-2xl rounded-2xl p-8 sm:p-10 max-w-lg mx-auto justify-center" dir="rtl">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-center text-[#471221] mb-8">تفاصيل حسابك</h2>
+
+      <!-- Loading State -->
+      <div *ngIf="isLoading" class="text-center">
+        <svg class="animate-spin h-8 w-8 text-pink-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-6" *ngIf="!isLoading">
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-[#040F0F] mb-2">البريد الإلكتروني</label>
+          <input
+            type="email"
+            [value]="userEmail || ''"
+            disabled
+            class="w-full border bg-gray-100 rounded-lg px-4 py-3 text-gray-500 text-right cursor-not-allowed"
+          >
+        </div>
+
+        <!-- First Name and Last Name (Same Row) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- First Name -->
+          <div>
+            <label class="block text-sm font-medium text-[#040F0F] mb-2">الاسم الأول</label>
+            <input
+              type="text"
+              formControlName="first_name"
+              placeholder="أدخل اسمك الأول"
+              class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200 text-right placeholder-gray-400"
+              [ngClass]="{'border-red-500': f['first_name'].touched && f['first_name'].invalid}"
+            >
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['first_name'].touched && f['first_name'].invalid">
+              * يجب أن يكون الاسم الأول على الأقل حرفين
+            </p>
+          </div>
+
+          <!-- Last Name -->
+          <div>
+            <label class="block text-sm font-medium text-[#040F0F] mb-2">الاسم الأخير</label>
+            <input
+              type="text"
+              formControlName="last_name"
+              placeholder="أدخل اسمك الأخير"
+              class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200 text-right placeholder-gray-400"
+              [ngClass]="{'border-red-500': f['last_name'].touched && f['last_name'].invalid}"
+            >
+            <p class="text-red-500 text-xs mt-1" *ngIf="f['last_name'].touched && f['last_name'].invalid">
+              * يجب أن يكون الاسم الأخير على الأقل حرفين
+            </p>
+          </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div>
+          <label class="block text-sm font-medium text-[#040F0F] mb-2">تاريخ الميلاد</label>
+          <input
+            type="date"
+            formControlName="dateOfBirth"
+            class="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200 text-right"
+          >
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <label class="block text-sm font-medium text-[#040F0F] mb-2">رقم الهاتف</label>
+          <div class="flex">
+            <span class="bg-pink-500 text-white px-3 py-3 rounded-r-lg text-sm font-medium">+</span>
+            <input
+              type="tel"
+              formControlName="phone"
+              placeholder="رقم الموبايل"
+              class="w-full border rounded-l-lg px-4 py-3 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200 text-right placeholder-gray-400"
+              [ngClass]="{'border-red-500': f['phone'].touched && f['phone'].invalid}"
+            >
+          </div>
+          <p class="text-red-500 text-xs mt-1" *ngIf="f['phone'].touched && f['phone'].invalid">
+            * يجب أن يكون رقم الهاتف صالحًا (10 أرقام على الأقل)
+          </p>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-8 text-center">
+          <button
+            type="submit"
+            [disabled]="profileForm.invalid || isLoading"
+            class="bg-pink-500 text-white px-6 py-3 rounded-lg hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 transition-all duration-200 font-medium"
+            [ngClass]="{'opacity-50 cursor-not-allowed': profileForm.invalid || isLoading}"
+          >
+            <span *ngIf="isLoading" class="inline-flex items-center">
+              <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              جارٍ التحديث...
+            </span>
+            <span *ngIf="!isLoading">تحديث بيانات حسابك</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

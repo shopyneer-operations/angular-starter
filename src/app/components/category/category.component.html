@@ -1,0 +1,234 @@
+<div class="container mx-auto p-4 sm:p-6" dir="rtl">
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-pink-600"></div>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage && !isLoading" class="bg-red-100 text-red-700 p-4 rounded-lg text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!isLoading && !errorMessage" class="space-y-6">
+    <!-- Subcategories Carousel (Show only if subcategories exist) -->
+    <div *ngIf="subcategories.length > 0" class="section_container bg-white p-4 rounded-lg shadow-md">
+      <div class="owl-carousel-container relative">
+        <owl-carousel-o [options]="carouselOptions" #carousel>
+          <ng-container *ngFor="let subcategory of subcategories; let i = index">
+            <ng-template carouselSlide [id]="'owl-slide-item-' + i">
+              <a
+                routerLink="/sub-category/{{subcategory.id}}"
+                class="category-item block text-center bg-pink-50 text-gray-800 font-medium py-3 px-4 rounded-lg hover:bg-pink-600 hover:text-white transition-all duration-300 transform hover:scale-105"
+                [attr.aria-label]="'View ' + subcategory.name"
+              >
+                {{ subcategory.name }}
+              </a>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+
+        <!-- Navigation Buttons -->
+        <button
+          class="nav-button left absolute top-1/2 -left-4 transform -translate-y-1/2 bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-400"
+          (click)="prevSlide()"
+          aria-label="Previous Subcategory"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          class="nav-button right absolute top-1/2 -right-4 transform -translate-y-1/2 bg-pink-600 text-white p-2 rounded-full hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-400"
+          (click)="nextSlide()"
+          aria-label="Next Subcategory"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex flex-col md:flex-row gap-6">
+      <!-- Sidebar Filters -->
+      <aside class="w-full md:w-1/4 bg-white rounded-lg shadow-md p-4 sm:p-6">
+        <!-- Brands Section -->
+        <div class="mb-6">
+          <h2 class="text-lg font-semibold mb-3 text-gray-800">البراند</h2>
+          <ul class="space-y-2 text-gray-600">
+            <li *ngFor="let brand of staticBrands">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="mr-2 rounded text-pink-600 focus:ring-pink-600"
+                  [(ngModel)]="brand.selected"
+                />
+                {{ brand.name }}
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Availability Section -->
+        <div class="mb-6">
+          <h2 class="text-lg font-semibold mb-3 text-gray-800">توافر المنتج</h2>
+          <ul class="grid grid-cols-2 gap-4 text-gray-600">
+            <li *ngFor="let availability of staticAvailability">
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="mr-2 rounded text-pink-600 focus:ring-pink-600"
+                  [(ngModel)]="availability.selected"
+                />
+                {{ availability.name }} ({{ availability.count }})
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Colors Section -->
+        <div class="mb-6">
+          <h2 class="text-lg font-semibold mb-3 text-gray-800">اللون</h2>
+          <ul class="grid grid-cols-2 gap-4 text-gray-600">
+            <li *ngFor="let color of staticColors" class="flex items-center">
+              <input
+                type="checkbox"
+                class="mr-2 rounded"
+                [ngClass]="color.class"
+                [(ngModel)]="color.selected"
+              />
+              <span>{{ color.name }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Price Section -->
+        <div class="mb-6">
+          <h2 class="text-lg font-semibold mb-3 text-gray-800">السعر</h2>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between space-x-reverse space-x-2">
+              <div class="flex flex-col items-center">
+                <label for="min-price" class="text-sm text-gray-600">من</label>
+                <input
+                  type="number"
+                  id="min-price"
+                  class="w-20 border border-gray-300 rounded-lg px-2 py-1 text-center focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  [(ngModel)]="minPrice"
+                  min="0"
+                />
+              </div>
+              <div class="flex flex-col items-center">
+                <label for="max-price" class="text-sm text-gray-600">إلى</label>
+                <input
+                  type="number"
+                  id="max-price"
+                  class="w-20 border border-gray-300 rounded-lg px-2 py-1 text-center focus:outline-none focus:ring-2 focus:ring-pink-600"
+                  [(ngModel)]="maxPrice"
+                  min="0"
+                />
+              </div>
+            </div>
+            <div>
+              <input
+                type="range"
+                id="price-range"
+                [min]="0"
+                [max]="1000"
+                step="10"
+                class="w-full h-2 bg-pink-600 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-pink-300"
+                [(ngModel)]="priceRange"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Rating Section -->
+        <div>
+          <h2 class="text-lg font-semibold mb-3 text-gray-800">تقييم المنتج</h2>
+          <ul class="grid grid-cols-2 gap-4 text-gray-600">
+            <li *ngFor="let rating of staticRatings">
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  name="rating"
+                  class="mr-2 rounded text-pink-600 focus:ring-pink-600"
+                  [(ngModel)]="selectedRating"
+                  [value]="rating.stars"
+                />
+                <div class="flex items-center space-x-reverse space-x-1">
+                  <i *ngFor="let star of [].constructor(rating.stars)" class="fas fa-star text-yellow-400"></i>
+                </div>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Products Section -->
+      <section class="w-full md:w-3/4 p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
+          <div class="flex items-center space-x-reverse space-x-4">
+            <p class="text-2xl font-bold text-gray-800">منتجات {{ category.name }}</p>
+            <img
+              src="{{category.metadata.thumbnail}}"
+              alt="{{ category.name }}"
+              class="w-12 h-12 rounded-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div class="relative">
+            <label for="sort" class="sr-only">ترتيب حسب</label>
+            <select
+              id="sort"
+              class="appearance-none border border-gray-300 rounded-lg px-4 py-2 pr-8 text-gray-600 bg-white focus:outline-none focus:ring-2 focus:ring-pink-600 transition-all duration-300"
+              [(ngModel)]="sortOption"
+            >
+              <option value="latest">الأحدث</option>
+              <option value="bestselling">الأكثر مبيعًا</option>
+              <option value="toprated">الأعلى تقييمًا</option>
+            </select>
+            <span class="absolute inset-y-0 right-2 flex items-center pointer-events-none">
+              <svg
+                class="w-4 h-4 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div
+          class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 animate-fade-in"
+        >
+          <app-product
+            *ngFor="let item of fetchedProducts"
+            [product]="item"
+            class="block transform hover:scale-105 transition-transform duration-300"
+          ></app-product>
+        </div>
+        <div *ngIf="fetchedProducts.length === 0" class="text-center text-gray-600 mt-6">
+          لا توجد منتجات في هذا التصنيف.
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

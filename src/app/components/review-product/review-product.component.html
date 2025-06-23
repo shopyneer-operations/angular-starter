@@ -1,0 +1,158 @@
+<div class="container mx-auto px-4 py-6 max-w-6xl mt-6 mb-6">
+  <h2 class="text-2xl font-bold text-right mb-6 text-gray-800">تقييم المنتج</h2>
+
+  <!-- Main Container with Two Columns -->
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Left Div -->
+    <div class="w-full md:w-2/3">
+      <!-- Product Info Card -->
+      <div class="rounded-xl p-6 bg-[#F6F6F6] transition-all duration-300">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-right">
+          <div class="flex-1">
+            <p class="font-semibold text-lg text-gray-800">مجموعة Dazzler Glitter للشفاه من شيقلام</p>
+            <p class="text-sm text-gray-500">تم التوصيل في السبت، 28 يناير، 01:00 صباحًا</p>
+          </div>
+          <img src="https://via.placeholder.com/80" alt="صورة المنتج" class="w-20 h-20 object-cover rounded-lg">
+        </div>
+      </div>
+
+      <!-- Star Rating -->
+      <div class="text-right p-4 bg-[#F6F6F6]">
+        <p class="font-semibold mb-3 text-gray-800">ما تقييمك للمنتج؟</p>
+        <div class="flex flex-row-reverse justify-end gap-2">
+          <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+            <i
+              class="fa fa-star text-2xl cursor-pointer transition-colors duration-200"
+              [ngClass]="{
+                'text-yellow-400': i < rating,
+                'text-gray-300': i >= rating,
+                'hover:text-yellow-400': i >= rating
+              }"
+              (click)="setRating(i + 1)"
+              (mouseover)="hoverRating = i + 1"
+              (mouseout)="hoverRating = 0"
+              [attr.aria-label]="'تقييم ' + (i + 1) + ' نجوم'"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="setRating(i + 1)"
+            ></i>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Review Form -->
+      <div class="bg-[#F6F6F6] rounded-xl p-6 mb-6 text-right">
+        <p class="font-semibold mb-3 text-gray-800">أضف العنوان</p>
+        <input
+          type="text"
+          placeholder="أضف عنوان"
+          class="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-200"
+          [(ngModel)]="reviewTitle"
+          aria-label="عنوان التقييم"
+        >
+        <p class="font-semibold mb-3 text-gray-800">أضف التقييم</p>
+        <textarea
+          rows="5"
+          placeholder="ما الذي أعجبك أو لم يعجبك في المنتج؟..."
+          class="w-full border border-gray-300 rounded-lg p-3 mb-3 focus:outline-none focus:ring-2 focus:ring-pink-500 resize-y transition-all duration-200"
+          [(ngModel)]="reviewText"
+          (input)="updateCharCount()"
+          maxlength="3000"
+          aria-label="نص التقييم"
+        ></textarea>
+        <div class="flex justify-between">
+          <small class="text-gray-400">{{ charCount }}/3000</small>
+          <small class="text-gray-400">الحد الأقصى 3000 حرف</small>
+        </div>
+      </div>
+
+      <!-- Upload Images -->
+      <div class=" bg-[#F6F6F6] rounded-xl p-6 mb-6 text-right">
+        <p class="font-semibold mb-3 text-gray-800">إضافة الصور (اختياري)</p>
+        <label
+          class="flex flex-col bg-[#ffff] items-center justify-center w-25 h-40 border-2 border-dashed border-pink-300 rounded-lg cursor-pointer hover:border-pink-500 transition-all duration-200"
+          for="image-upload"
+        >
+          <div class="flex flex-col items-center gap-2 ">
+            <i class="fa fa-image text-3xl text-pink-400"></i>
+            <p class="text-sm text-gray-500">اضغط لإضافة صورة</p>
+          </div>
+          <input
+            id="image-upload"
+            type="file"
+            class="hidden"
+            multiple
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            aria-label="تحميل الصور"
+          >
+        </label>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-4" *ngIf="imagePreviews.length > 0">
+          <div *ngFor="let preview of imagePreviews; let i = index" class="relative">
+            <img [src]="preview" alt="معاينة الصورة" class="w-full h-20 object-cover rounded-lg">
+            <button
+              class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+              (click)="removeImage(i)"
+              aria-label="إزالة الصورة"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-3">الحد الأقصى 5 صور / 250ك.ب للصورة</p>
+      </div>
+        <div class="bg-white rounded-xl shadow-lg p-6 text-right mb-6">
+        <button
+          class="w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          [disabled]="!reviewTitle || !reviewText || rating === 0"
+          (click)="submitReview()"
+        >
+          إرسال التقييم
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Div -->
+    <div class="w-full md:w-1/3">
+      <!-- User Info & Submit -->
+    
+
+      <div dir="rtl" class="p-4 bg-white rounded-xl shadow-lg border border-gray-300">
+        <h2 class="text-right text-xl font-semibold mb-4 text-#471221">اكتب تقييماً</h2>
+
+        <!-- تقييم تجربة التوصيل -->
+        <div class="mb-4">
+          <button class="w-full flex items-center justify-between border rounded-lg px-4 py-3 text-right hover:bg-gray-50 transition-all duration-200">
+            <div>
+              <p class="font-semibold text-gray-800">قيّم تجربة التوصيل</p>
+              <p class="text-sm text-gray-500">قيم عملية الشحن والتوصيل</p>
+            </div>
+            <i class="fa fa-arrow-left text-pink-500"></i>
+          </button>
+        </div>
+
+        <!-- تقييم تجربة كياج -->
+        <div class="mb-4">
+          <button class="w-full flex items-center justify-between border rounded-lg px-4 py-3 text-right hover:bg-gray-50 transition-all duration-200">
+            <div>
+              <p class="font-semibold text-gray-800">قيّم تجربة كياج</p>
+              <p class="text-sm text-gray-500">اكتب رأيك للبائع</p>
+            </div>
+            <i class="fa fa-arrow-left text-pink-500"></i>
+          </button>
+        </div>
+
+        <!-- تقييم المنتج -->
+        <div class="mb-4">
+          <button class="w-full flex items-center justify-between border border-yellow-400 bg-yellow-50 rounded-lg px-4 py-3 text-right">
+            <div>
+              <p class="font-semibold text-yellow-700">قيّم المنتج</p>
+              <p class="text-sm text-yellow-600">ساعد الآخرين على شراء أفضل المنتجات</p>
+            </div>
+            <i class="fa fa-arrow-left text-yellow-500"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

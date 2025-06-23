@@ -1,0 +1,120 @@
+<div class="container mx-auto px-4 py-8 max-w-7xl">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Left Panel -->
+    <div class="space-y-6">
+      <div class="p-4 space-y-4" dir="rtl">
+        <!-- Order Code -->
+        <div class="border p-6 rounded-lg shadow-sm bg-[#BDBDBD] w-full">
+          <span class="text-[#471221] font-bold">كود الأوردر:</span>
+          <span class="text-[#471221] px-4 py-2 font-bold">NU:12345589</span>
+        </div>
+
+        <!-- Delivery Address -->
+        <div class="border p-6 rounded-lg shadow-sm text-right w-full bg-white">
+          <h3 class="text-[#471221] font-bold text-lg">
+            عنوان التوصيل <span class="text-[#471221]">(المنزل)</span>
+          </h3>
+          <p class="text-sm text-[#777777] mt-2">
+            Bassam <br>
+            <span class="text-[#000000] font-semibold">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              بيلا - 1000 - الدقي - شارع النيل - قسم بيلا - سويف، محافظة بني سويف
+            </span>
+          </p>
+          <button class="mt-4 bg-white border border-[#EF3D6F] text-[#EF3D6F] px-4 py-2 rounded-lg transition">
+            تحديث العنوان
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right/Middle Panel -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Delivery Info -->
+      <div class="bg-[#F6F6F6] rounded-xl shadow-lg p-6 md:p-10" dir="rtl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <p class="text-sm font-medium text-gray-700">تم التوصيل في السبت، 24 مايو 2025، 11:48 صباحًا</p>
+          <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+          </svg>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 gap-4">
+          <div class="text-sm text-gray-700">هل لديك مشكلة مع هذا المنتج؟</div>
+          <button class="bg-[#F5B0CE] text-black py-2 px-5 rounded-lg text-sm transition-all duration-200 w-full sm:w-auto">
+            إرسال طلب الإرجاع
+          </button>
+        </div>
+      </div>
+
+      <!-- Experience Sharing -->
+      <div class="bg-[#F6F6F6] rounded-xl shadow-lg p-6 md:p-12" dir="rtl">
+        <p class="text-sm font-semibold text-gray-700 mb-5">شارك تجربتك</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <!-- Rating Card Template -->
+          <div class="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition flex flex-col items-center text-center w-full">
+            <svg class="w-6 h-6 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H4V4h16v16z"/>
+            </svg>
+            <p class="mt-2 text-sm text-gray-600">لقد تم إرجاعه</p>
+            <button  routerLink="/review-seller"
+            class="mt-3 bg-[#F5B0CE] text-black py-2 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 rtl:space-x-reverse">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 2H4v20h16V2z"/>
+              </svg>
+              <span>قيم البائع</span>
+            </button>
+          </div>
+
+          <!-- Delivery Rating -->
+          <div class="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition flex flex-col items-center text-center w-full">
+            <svg class="w-6 h-6 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 7h-1V5c0-1.1-.9-2-2-2H8C6.9 3 6 3.9 6 5v2H5c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z"/>
+            </svg>
+            <p class="mt-2 text-sm text-gray-600">تمت عملية التوصيل بنجاح</p>
+            <button  routerLink="/review-delivery"
+             class="mt-3 bg-[#F5B0CE] text-black py-2 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 rtl:space-x-reverse">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 7h-1V5H8v2H5c-1.1 0-2 .9-2 2v10h18V9c0-1.1-.9-2-2-2z"/>
+              </svg>
+              <span>قيم التوصيل</span>
+            </button>
+          </div>
+
+          <!-- Product Rating -->
+          <div class="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition flex flex-col items-center text-center w-full">
+            <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+            <p class="mt-2 text-sm text-gray-600">شارك رأيك عن المنتج</p>
+            <button   routerLink="/review-product"
+            class="mt-3 bg-[#F5B0CE] text-black py-2 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2 rtl:space-x-reverse">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              </svg>
+              <span>قيم المنتج</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="bg-[#F6F6F6] rounded-xl shadow-lg p-4 md:p-8" dir="rtl">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-sm font-semibold text-gray-700">بيانات المنتج</p>
+          <button class=" bg-[#F5B0CE] text-black py-2 px-4 rounded-lg text-sm transition-all duration-200">عرض إثبات التسليم</button>
+        </div>
+     <div class="border border-1">
+
+     </div>
+        <div class="flex flex-col sm:flex-row items-center gap-4 rtl:space-x-reverse mt-2">
+          <img src="/assets/images/product.jpg" alt="product" class="w-16 h-16 rounded-md object-cover shadow-sm">
+          <div class="text-center sm:text-right">
+            <p class="text-sm font-medium text-gray-700">مجموعة Dazzler Glitter للشفاه من شيجلام</p>
+            <p class="text-xs text-gray-500">يباع بواسطة شيجلام</p>
+            <p class="text-pink-600 text-sm mt-1 font-medium">310.00 جنيه</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

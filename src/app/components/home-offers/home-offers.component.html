@@ -1,0 +1,72 @@
+<div class="grid grid-cols-12 gap-4 p-4">
+  <!-- 9 Columns Section -->
+  <div class="col-span-12 lg:col-span-9 bg-white p-6 rounded-xl ">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4" dir="rtl">
+      <h1 class="text-3xl font-bold text-[#471221]">
+        أجمد <span class="text-[#EF3D6F]">العروض</span>
+      </h1>
+      <img
+        src="assets/images/percent.png"
+        alt="خصومات"
+        class="w-12 h-12 object-contain"
+      />
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-[#EF3D6F]"></div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="text-center text-red-500 p-4">
+      {{ error }}
+    </div>
+
+    <!-- Product Grid -->
+    <div *ngIf="!isLoading && !error" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div *ngFor="let item of items" class="relative transform transition duration-300 hover:scale-105">
+        <app-product [product]="item"></app-product>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Columns Section -->
+  <div class="col-span-12 lg:col-span-3 flex flex-col gap-4">
+    <!-- Section 1 -->
+    <div class="bg-[#FFF1DB] rounded-xl shadow-md p-6 text-center flex-1">
+      <p class="text-sm text-[#B56387] font-medium">الجمال والعناية الشخصية</p>
+      <h2 class="text-2xl font-bold text-[#471221] mt-2">خصم 32%</h2>
+      <p class="text-sm text-[#000000] mt-1">على كل منتجات التجميل</p>
+      <button
+        class="bg-[#D69AC8] text-white font-medium text-sm px-6 py-2 rounded-lg shadow-md mt-4 hover:bg-[#B56387] transition duration-300"
+        aria-label="تسوق منتجات التجميل"
+      >
+        تسوق الآن <i class="fas fa-shopping-cart ml-2"></i>
+      </button>
+      <div class="mt-6">
+        <img
+          src="assets/images/discound.png"
+          alt="خصم منتجات التجميل"
+          class="w-full rounded-lg object-cover"
+        />
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="bg-[#F5B0CE] rounded-xl shadow-md p-6 text-center">
+      <button class="bg-[#471221] text-white px-4 py-2 rounded-lg text-sm font-medium">
+        عروض الجمعة البيضاء
+      </button>
+      <h2 class="text-lg font-bold text-[#FFFFFF] mt-2">
+        خصومات تصل إلى 50% <br /> فقط على أزياء الشتاء
+      </h2>
+      <button
+        class="bg-[#EF3D6F] text-white font-medium text-sm px-6 py-3 rounded-lg shadow-md mt-4 hover:bg-[#D02A58] transition duration-300"
+        aria-label="اكتشف عروض الجمعة البيضاء"
+      >
+        <i class="fas fa-arrow-left ml-2"></i> اكتشف كل العروض
+      </button>
+    </div>
+  </div>
+</div>

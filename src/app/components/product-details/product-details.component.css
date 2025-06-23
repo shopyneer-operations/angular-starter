@@ -1,0 +1,25 @@
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+img {
+  transition: transform 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+table {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 640px) {
+  .h-80 {
+    height: 16rem;
+  }
+
+  .grid-cols-4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

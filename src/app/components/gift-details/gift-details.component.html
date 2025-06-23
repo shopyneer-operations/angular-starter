@@ -1,0 +1,75 @@
+<div class="flex flex-col lg:flex-row gap-6 p-6">
+    <!-- Left Section (Gift Card Options) -->
+    <div class="w-full lg:w-2/3 p-6 rounded-lg  " dir="rtl">
+        <h2 class="text-xl font-bold text-[#471221] mb-4">تفاصيل بطاقة الهدية</h2>
+
+        <!-- Select Gift Card -->
+        <div>
+            <h3 class="text-lg font-semibold mb-2">اختار الثيم</h3>
+            <div class="flex gap-3 flex-wrap">
+                <img src="assets/images/gift img.png" class="w-24 h-16 border rounded-lg cursor-pointer">
+                <img src="assets/images/gift img.png" class="w-24 h-16 border rounded-lg cursor-pointer">
+                <img src="assets/images/gift img.png" class="w-24 h-16 border rounded-lg cursor-pointer">
+            </div>
+        </div>
+
+        <!-- Select Amount -->
+        <div class="mt-4">
+            <h3 class="text-lg mb-2">اختر المبلغ</h3>
+            <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                <button class="w-full px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">50</button>
+                <button class="w-full px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">100</button>
+                <button class="w-full px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">500</button>
+                <button class="w-full px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">1000</button>
+                <button class="w-full px-4 py-2 border rounded-lg text-gray-700 bg-gray-200">مخصص</button>
+            </div>
+        </div>
+
+        <!-- Select Quantity -->
+        <div class="mt-4">
+            <div class="flex w-24 items-center bg-[#FDEBF0] p-2 rounded-md justify-between">
+                <button class="w-8 h-8 text-base font-bold text-[#EF3D6F] flex items-center justify-center" (click)="decreaseQuantity()">-</button>
+                <span class="w-8 text-base font-semibold text-center">{{ quantity }}</span>
+                <button class="w-8 h-8 text-base font-bold text-[#EF3D6F] flex items-center justify-center" (click)="increaseQuantity()">+</button>
+            </div>
+        </div>
+
+        <!-- Recipient Details -->
+        <div class="mt-6">
+            <label class="flex items-center gap-2">
+                <input type="checkbox" class="w-4 h-4">
+                <span class="text-sm text-gray-700">اشتريها لنفسي</span>
+            </label>
+
+            <input type="text" placeholder="اسم المستلم" class="w-full sm:w-3/4 p-3 border rounded-lg mt-2">
+            <input type="email" placeholder="إيميل المستلم" class="w-full sm:w-3/4 p-3 border rounded-lg mt-2">
+        </div>
+
+        <!-- Info & Checkout -->
+        <div class="mt-6 text-[#777777] text-sm flex items-center gap-1">
+            <img src="assets/images/warningcircle.png" class="w-4 h-4">
+
+            <span>بطاقة الهدية صالحة لمدة عام من تاريخ الشراء</span>
+        </div>
+        
+
+        <div class="mt-4 flex justify-between items-center w-full sm:w-3/4">
+            <span class="text-lg text-[#777777]">1 بطاقة هدية</span>
+            <span class="text-lg">0.00 جنيه</span>
+        </div>
+
+        <button class="bg-[#F6F6F6] text-[#777777] w-full sm:w-3/4 px-6 py-2 rounded-lg mt-4">
+            استمر لإتمام الشراء
+        </button>
+    </div>
+
+    <!-- Divider (Responsive) -->
+    <div class="w-full h-[2px] bg-gray-300 my-4 lg:hidden"></div> <!-- Horizontal line on mobile -->
+    <div class="hidden lg:block w-[2px] bg-gray-300"></div> <!-- Vertical line on larger screens -->
+
+    <!-- Right Section (Selected Gift Card) -->
+    <div class="w-full lg:w-1/3 p-6 rounded-lg" dir="rtl">
+        <h3 class="text-lg font-bold text-[#471221] mb-4">العنصر المحدد</h3>
+        <img src="assets/images/gift img.png" class="w-full rounded-lg">
+    </div>
+</div>

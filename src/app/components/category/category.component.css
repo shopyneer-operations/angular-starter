@@ -1,0 +1,52 @@
+/* Owl Carousel Overrides */
+.owl-carousel-container {
+  position: relative;
+}
+
+.nav-button {
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  transform: scale(1.1);
+}
+
+.ngx-carousel .owl-stage {
+  display: flex;
+  align-items: center;
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Range Slider Customization */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ef3d6f;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ef3d6f;
+  border-radius: 50%;
+  cursor: pointer;
+}

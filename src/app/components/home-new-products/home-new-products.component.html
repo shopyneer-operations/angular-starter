@@ -1,0 +1,66 @@
+<div class="section-container py-6 px-8">
+    <div class="flex flex-col items-center py-6 px-4">
+        <!-- Text -->
+        <span class="text-lg font-semibold text-pink-600 text-center">  أحدث المنتجات </span>
+        
+        <!-- Dots -->
+        <div class="flex space-x-2 mt-2">
+          <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+          <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+          <span class="inline-block w-2 h-2 bg-pink-500 rounded-full"></span>
+        </div>
+      </div>
+      
+
+            <div class="owl-carousel-container ">
+                <owl-carousel-o [options]="carouselOptions" #carousel>
+                    <ng-container *ngFor="let item of categories; let i = index">
+                        <ng-template carouselSlide [id]="'owl-slide-item-' + i">
+            
+                <!-- Categories List -->
+                <div class="flex flex-col lg:flex-row justify-between items-center p-6 bg-[#B56387] rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                    <!-- Left side: Product Details -->
+                    <div class="flex flex-col space-y-2 text-white w-full lg:w-2/3">
+                      <!-- Brand Button (fixed size) -->
+                      <button class="text-sm text-[#471221] bg-[#FDEBF0] p-2 rounded-lg font-semibold shadow-md hover:bg-[#FDEBF0]/80 transition-all duration-300 w-full sm:w-auto">
+                        Shein
+                      </button>
+                      <!-- Product Name -->
+                      <h3 class="text-lg font-semibold leading-6 text-white">
+                        عطر من لطافة للحضور
+                      </h3>
+                      <!-- Product Size -->
+                      <p class="text-sm text-[#FDEBF0]">100 مل</p>
+                  
+                      <!-- Product Price in a new row -->
+                      <div class="text-xl font-bold text-[#471221]">
+                        1,850.00 جنيه
+                      </div>
+                    </div>
+                  
+                    <!-- Right side: Product Image -->
+                    <img src="assets/images/shein.png" alt="Perfume" class="w-36 h-36 object-contain rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 mt-4 lg:mt-0">
+                  </div>
+                  
+               
+              </ng-template>
+              </ng-container>
+              </owl-carousel-o>
+               <!-- Left Arrow Button -->
+               <button class="left btn" (click)="prevSlide()">
+                <!-- Left Arrow Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"(click)="prevSlide()">>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              
+              <!-- Right Arrow Button -->
+              <button class="right btn" (click)="nextSlide()">
+                <!-- Right Arrow Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            
+       </div>

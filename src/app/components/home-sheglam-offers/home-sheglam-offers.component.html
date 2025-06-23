@@ -1,0 +1,39 @@
+<!-- Header Section -->
+<div
+  class="flex flex-wrap items-center justify-between p-4 sm:p-6 bg-gradient-to-br from-[#F9FAFB] to-[#EEEEEE] rounded-xl shadow-sm"
+  dir="rtl"
+>
+  <!-- Heading with Image -->
+  <div class="flex items-center space-x-3 space-x-reverse">
+
+    <div class="flex items-center space-x-2 space-x-reverse font-extrabold text-lg sm:text-xl">
+      <span class="text-[#471221]  px-2 py-1 rounded-md">عروض</span>
+      <span class="text-[#EF3D6F]  px-2 py-1 rounded-md">شيجلام</span>
+      <span class="text-[#000000]">SHEGLAM</span>
+    </div>
+  </div>
+
+  <!-- Button -->
+  <div class="flex items-center mt-4 sm:mt-0">
+    <button
+      class="bg-[#EF3D6F] text-white font-semibold text-sm sm:text-base px-6 py-2.5 sm:py-3 rounded-full shadow-md hover:bg-[#D02A58] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#EF3D6F]"
+      aria-label="اكتشف كل العروض"
+    >
+      اكتشف كل العروض
+      <i class="fas fa-arrow-left mr-2"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Product Grid -->
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 bg-[#EEEEEE] p-4 sm:p-6 md:p-8"
+>
+  <!-- Loop through items -->
+  <div
+    class="relative rounded-lg"
+    *ngFor="let item of items"
+  >
+    <app-product [product]="item"></app-product>
+  </div>
+</div>
